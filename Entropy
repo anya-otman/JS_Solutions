@@ -1,0 +1,39 @@
+let fs = require('fs');
+let s = fs.readFileSync('data.txt');
+s = s.toString();
+let alph = new Array();
+
+for (let i = 0; i < s.length; i++)
+{
+	alph[s.charAt(i)] = 0;
+}
+
+for (let i = 0; i < s.length; i++)
+{
+    alph[s.charAt(i)]++;
+}
+
+let h = 0;
+let n = 0;
+
+for (let i in alph)
+{
+    alph[i] /= s.length;
+    n++;
+}
+
+if (n == 0)
+	console.log('your file is empty');
+
+else if (n > 1)
+{
+    for (let i in alph)
+	{
+    h -= alph[i] * Math.log2(alph[i]);
+    }
+    h /= Math.log2(n);
+    console.log(h);
+}
+
+else
+	console.log(0);
