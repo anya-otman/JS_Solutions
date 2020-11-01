@@ -1,0 +1,59 @@
+let fs = require('fs');
+let arg = process.argv;
+let inText;
+let inText2;
+let testString = '';
+let resString = '';
+
+inText = fs.readFileSync('input.txt');
+inText = inText.toString();
+inText2 = fs.readFileSync('output.txt');
+inText2 = inText2.toString();
+console.log(inText.length);
+
+code(inText);
+function code(inText){
+let i = 0, n = 1;
+	while (i < inText.length){
+		while(inText.charAt(i) == inText.charAt(i+n))
+			n++;
+		console.log(inText.charAt(i)," - ", n);
+		nJump = n;
+		while( n >= 127){
+			resString += '#' + String.fromCharCode(127) + inText.charAt(i);
+			n -= 127;
+		}
+		if ((n > 3) || (inText.charAt(i) == '#'))
+			resString += '#' + String.fromCharCode(n) + inText.charAt(i)
+		else
+			for(var k = 0; k < n; k++)
+				resString += inText.charAt(i);
+		i += nJump;
+		n = 1;
+}
+console.log(resString);
+fs.writeFile('output.txt', resString, (err) => {
+		if (err){
+			console.err(err);
+			return;
+		}
+		console.log('Your file has been saved');
+	});
+}
+	
+decode(inText2)
+function decode(inText2){
+let i=0, string="";
+	while(i<inText2.length){
+		if (inText2.charAt(i)=='#'){
+			for (var j=1; j<inText2.charCodeAt(i+1); j++)
+				string += (inText2.charAt(i+2));
+			i+=3;	
+		}
+		else{
+			string += inText2.charAt(i);
+			i++;
+		}
+	}
+	console.log(string);
+  }
