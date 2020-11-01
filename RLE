@@ -9,7 +9,6 @@ inText = fs.readFileSync('input.txt');
 inText = inText.toString();
 inText2 = fs.readFileSync('output.txt');
 inText2 = inText2.toString();
-console.log(inText.length);
 
 code(inText);
 function code(inText){
@@ -37,7 +36,7 @@ fs.writeFile('output.txt', resString, (err) => {
 			console.err(err);
 			return;
 		}
-		console.log('Your file has been saved');
+		console.log('Coded file has been saved');
 	});
 }
 	
