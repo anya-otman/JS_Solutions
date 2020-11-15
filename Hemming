@@ -1,0 +1,58 @@
+<html>
+<head>
+<title>hemming code</title>
+<script>
+function code(){
+let mes = document.getElementById('inpMessage').value;
+mes = mes.split('');
+for(let i = 0; i < mes.length; i++)
+mes[i] *= 1;
+let control = new Array();
+control.push((mes[0] + mes[1] + mes[3])%2);
+control.push((mes[1] + mes[2] + mes[3])%2);
+control.push((mes[0] + mes[2] + mes[3])%2);
+document.getElementById('codedMessage').value = mes.join('') + control.join('');
+}
+
+function decode(){
+let mes2 = document.getElementById('codedMessage').value;
+document.getElementById('decodedMessage').value = mes2[0] + mes2[1] + mes2[2] + mes2[3];
+mes2 = mes2.split('');
+for(let i = 0; i < mes2.length; i++)
+	mes2[i] *= 1;
+let zone1 = mes2[0] + mes2[1] + mes2[3];
+let zone2 = mes2[1] + mes2[2] + mes2[3];
+let zone3 = mes2[0] + mes2[2] + mes2[3];
+let circle1 = (mes2[4] == (zone1 % 2));
+let circle2 = (mes2[5] == (zone2 % 2));
+let circle3 = (mes2[6] == (zone3 % 2));
+
+if (circle1==false && circle2==false && circle3==false)
+    document.getElementById('placeOfError').textContent = 'Error on 4 place';
+else if (circle1==false && circle2==true && circle3==false)
+    document.getElementById('placeOfError').textContent = 'Error on 1 place';
+else if (circle1==false && circle2==false && circle3==true)
+    document.getElementById('placeOfError').textContent = 'Error on 2 place';
+else if (circle1==true && circle2==false && circle3==false)
+    document.getElementById('placeOfError').textContent = 'Error on 3 place';
+else if (circle1==false && circle2==true && circle3==true)
+    document.getElementById('placeOfError').textContent = 'Error on 5 place';
+else if (circle1==true && circle2==false && circle3==true)
+    document.getElementById('placeOfError').textContent = 'Error on 6 place';
+else if (circle1==true && circle2==true && circle3==false)
+    document.getElementById('placeOfError').textContent = 'Error on 7 place';
+else
+    document.getElementById('placeOfError').textContent = 'Error free';
+}
+</script>
+</head>
+<body>
+<h1>Hemming code</h1>
+<p> <input type='text' id='inpMessage'> Type the message </p>
+<p> <input type='button' value='code' onClick='code()'> </p>
+<p> <input type='text' id='codedMessage'> Coded message </p>
+<p> <input type='button' value='decode' onClick='decode()'> </p>
+<p> <input type='text' id='decodedMessage'> Decoded message </p>
+<p> <span id='placeOfError'> </span> </p>
+</body>
+</html>
