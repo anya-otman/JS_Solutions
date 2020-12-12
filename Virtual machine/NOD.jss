@@ -7,3 +7,5 @@ subtract 52 53 52
 subtract 53 52 53
 output 53
 exit
+
+//Нахождение НОД чисел 40 и 100
