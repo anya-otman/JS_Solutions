@@ -1,13 +1,11 @@
 set 50 5
 set 51 1
-subtract 50 51 52
-subtract 52 51 53
-subtract 53 51 54
-multiply 50 51 55
-multiply 55 52 55
-multiply 55 53 55
-multiply 55 54 55
-output 55
+set 52 1
+greatestNumber 50 51 50
+multiply 50 52 52
+subtract 50 51 50
+jnz 50 9
+output 52
 exit
 
 //Нахождение факториала числа 5
