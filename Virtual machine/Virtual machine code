@@ -61,7 +61,25 @@ while (flag)
 		else
 			mem[mem[ip+3]]=mem[mem[ip+2]]; 
         ip += 4;
-		break; 
+		break;
+		
+		case 'jnz':
+	    if (mem[mem[ip+1]]!=0)
+			ip=parseInt(mem[ip+2])
+		else
+			ip += 3;
+		break;
+		
+		case 'jz':
+	    if (mem[mem[ip+1]]==0)
+			ip=parseInt(mem[ip+2])
+		else
+			ip += 3;
+        break;
+		
+		case 'jmp':	
+			ip=parseInt(mem[ip+1])    
+        break;
 			
 		case 'compare':
         if (mem[mem[ip+1]]!=mem[mem[ip+2]])
