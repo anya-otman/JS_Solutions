@@ -1,0 +1,89 @@
+//чтение строки из файла input.txt
+let fs = require('fs');
+str = fs.readFileSync('input.txt');
+str = str.toString();
+
+function Node(letter, freq, used, parrent, code){
+	this.letter = letter;
+	this.freq = freq;
+	this.used = used;
+	this.parrent = parrent;
+	this.code = code
+}
+
+let alph = new Array();
+let tree = new Array();
+for (let i = 0; i < str.length; i++){
+	alph[str.charAt(i)] = 0;
+}
+
+for (let i = 0; i < str.length; i++){
+	alph[str.charAt(i)]++;
+}
+
+console.log(alph);
+
+for (i in alph){
+    let newNode = new Node(i, alph[i], 0, null, '');
+	tree.push(newNode);
+}
+
+treeLength = tree.length;
+for (let i = 0; i < treeLength - 1; i++){
+	let minInd = -1;
+	let minInd2 = -1;
+	let minFreq = str.length;
+	let minFreq2 = str.length;
+	for (let j = 0; j < tree.length; j++){
+		if ((tree[j].used == 0) && (tree[j].freq <= minFreq)){
+			minInd2 = minInd;
+			minFreq2 = minFreq;
+			minInd = j;
+			minFreq = tree[j].freq;
+		}
+		else if ((tree[j].used == 0) && (tree[j].freq <= minFreq2)){
+			minInd2 = j;
+			minFreq2 = tree[j].freq;
+		}
+	}
+	
+	tree[minInd].used = 1;
+	tree[minInd].parrent = tree.length;
+	tree[minInd2].used = 1;
+	tree[minInd2].parrent = tree.length;
+	tree.push(new Node(tree[minInd].letter + tree[minInd2].letter, tree[minInd].freq + tree[minInd2].freq, 0, null, ''));
+}
+
+tree[tree.length - 1].used = 1;
+for (let i = tree.length - 2; i >= 0; i--){
+	if (tree[tree[i].parrent].used) {
+        tree[i].code = tree[tree[i].parrent].code + '1';
+        tree[tree[i].parrent].used = 0;
+    }
+    else
+        tree[i].code = tree[tree[i].parrent].code + '0';
+}
+
+let codedStr = '';
+for (let i = 0; i < str.length; i++){
+	for (let j = 0; j < tree.length - 2; j++){
+		if (str[i] == tree[j].letter)
+		    codedStr += tree[j].code;
+	}
+}
+
+let decodedStr = '';
+let codedLetter = '';
+for (let i = 0; i < codedStr.length; i++){
+	codedLetter += codedStr[i];
+	for (let j = 0; j < treeLength; j++){
+		if (codedLetter == tree[j].code){
+			decodedStr += tree[j].letter;
+			codedLetter = '';
+		}
+	}
+}
+
+console.log(tree);
+console.log(codedStr);
+console.log(decodedStr);
