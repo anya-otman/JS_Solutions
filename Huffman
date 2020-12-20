@@ -54,6 +54,8 @@ for (let i = 0; i < treeLength - 1; i++){
 	tree.push(new Node(tree[minInd].letter + tree[minInd2].letter, tree[minInd].freq + tree[minInd2].freq, 0, null, ''));
 }
 
+if (tree.length == 1)
+    tree[0].code = 1;
 tree[tree.length - 1].used = 1;
 for (let i = tree.length - 2; i >= 0; i--){
 	if (tree[tree[i].parrent].used) {
