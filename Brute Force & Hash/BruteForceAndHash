@@ -1,3 +1,4 @@
+//входные данные берутся из файла wap.txt, в котором находится текст "Войны и мира" на английском языке
 let fs = require('fs');
 let s = fs.readFileSync('wap.txt');
 s = s.toString();
