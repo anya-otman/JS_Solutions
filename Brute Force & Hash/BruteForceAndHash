@@ -5,12 +5,12 @@ s = s.toString();
 let t = 'war';
 let hashS = 0;
 let hashT = 0
-BruteForce();
-SimpleHashSet(hashS, hashT);
-QuadroHashSet(hashS, hashT);
-RabinCarpHashSet(hashS, hashT);
+bruteForce();
+simpleHash(hashS, hashT);
+squareHash(hashS, hashT);
+rabinCarpHash(hashS, hashT);
 
-function BruteForce(){
+function bruteForce(){
 	let bf = new Array();
 	for (let i = 0; i < s.length - t.length + 1; i++){
         for (let j = 0; s[i + j] == t[j]; j++){
@@ -18,12 +18,12 @@ function BruteForce(){
                 bf.push(i + 1);
 		}
 	}
-	console.log("BruteForce");
+	console.log("Brute Force");
 	console.log(bf);
 	console.log(" ");
 }
 
-function SimpleHashSet(hashS, hashT){
+function simpleHash(hashS, hashT){
 	let sh = new Array();
 	for (let i = 0; i < t.length; i++){
         hashS += s.charCodeAt(i);
@@ -38,12 +38,12 @@ function SimpleHashSet(hashS, hashT){
 		}
         hashS = hashS + s.charCodeAt(j + t.length) - s.charCodeAt(j);
     }
-    console.log("SimpleHash");
+    console.log("Simple Hash");
 	console.log(sh);
 	console.log(" ");
 }
 
-function QuadroHashSet(hashS, hashT){
+function squareHash(hashS, hashT){
 	let qh = new Array();
 	for (let i = 0; i < t.length; i++){
         hashS += Math.pow(s.charCodeAt(i), 2);
@@ -58,12 +58,12 @@ function QuadroHashSet(hashS, hashT){
         }
         hashS = hashS + Math.pow(s.charCodeAt(j + t.length), 2) - Math.pow(s.charCodeAt(j), 2);
     }
-    console.log("QuadroHash");
+    console.log("Square Hash");
 	console.log(qh);
 	console.log(" ");
 }
 
-function RabinCarpHashSet(hashS, hashT){
+function rabinCarpHash(hashS, hashT){
 	let rch = new Array();
 	for (let i = 0; i < t.length; i++){
         hashS += s.charCodeAt(i) * Math.pow(2, t.length - i - 1);
@@ -78,6 +78,6 @@ function RabinCarpHashSet(hashS, hashT){
         }
         hashS = (hashS - s.charCodeAt(j) * Math.pow(2, t.length - 1)) * 2 + s.charCodeAt(j + t.length);
     }
-    console.log("RabinCarpHash");
+    console.log("Rabin Carp Hash");
 	console.log(rch);
 }
